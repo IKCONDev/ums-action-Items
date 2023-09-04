@@ -1,0 +1,18 @@
+server:
+  port: ${port:0}
+spring:
+  application:
+    name: UMS-ACTIONITEMS-SERVICE
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    password: root
+    url: jdbc:postgresql://10.10.1.224:5432/actionItem
+    username: postgres
+  devtools:
+    restart:
+      enabled: true
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: update
+    show-sql: true
