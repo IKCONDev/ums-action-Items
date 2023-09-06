@@ -59,7 +59,7 @@ public class ActionsController {
 		}
 	}
 	//Fetching the Single action item
-	@CrossOrigin(origins="*")
+	
 	@GetMapping("/get-action-item/{id}")
 	public ResponseEntity<?> getSingleActionItem(@PathVariable Integer id){
 		try {
