@@ -21,5 +21,7 @@ public interface ActionsService {
 	
 	//get action items of an event based on eventId
 	ActionItemsListVO fetchActionItemsOfEvent(Integer eventId);
+	
+	ActionItemsListVO fetchActionItems();
 
 }

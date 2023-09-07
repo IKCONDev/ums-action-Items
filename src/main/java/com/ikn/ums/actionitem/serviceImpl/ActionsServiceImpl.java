@@ -78,6 +78,14 @@ public class ActionsServiceImpl implements ActionsService{
 		acItemsVO.setActionItems(actionItemsList);
 		return acItemsVO;
 	}
+
+	@Override
+	public ActionItemsListVO fetchActionItems() {
+		ActionItemsListVO acItemsVO = new ActionItemsListVO();
+		List<ActionItems> actionItemsList = repo.findAll();
+		acItemsVO.setActionItems(actionItemsList);
+		return acItemsVO;
+	}
 	
 
 }

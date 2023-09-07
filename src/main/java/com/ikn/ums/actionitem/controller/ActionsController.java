@@ -110,4 +110,16 @@ public class ActionsController {
 		return new ResponseEntity<>(acItemsListVO, HttpStatus.OK);
 	}
 	
+	/**
+	 * 
+	 * @return all action items
+	 */
+	@GetMapping("/ac-items")
+	public ResponseEntity<?> getAllActionItems(){
+		ActionItemsListVO acItemsListVO = service.fetchActionItems();
+		return new ResponseEntity<>(acItemsListVO, HttpStatus.OK);
+	}
+	
+	//TODO: get action items based on userid
+	
 }
