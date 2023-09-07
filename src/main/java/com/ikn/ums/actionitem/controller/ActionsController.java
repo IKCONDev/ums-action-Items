@@ -1,4 +1,6 @@
-package com.ikn.ums.controller;
+package com.ikn.ums.actionitem.controller;
+
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -13,10 +15,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ikn.ums.dto.ActionsDto;
-import com.ikn.ums.entity.ActionItems;
-import com.ikn.ums.model.ActionModel;
-import com.ikn.ums.service.ActionsService;
+import com.ikn.ums.actionitem.VO.ActionItemsListVO;
+import com.ikn.ums.actionitem.dto.ActionsDto;
+import com.ikn.ums.actionitem.entity.ActionItems;
+import com.ikn.ums.actionitem.service.ActionsService;
 
 
 @RestController
@@ -95,6 +97,17 @@ public class ActionsController {
 			return new ResponseEntity<>(e.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		
-		
 	}
+	
+	/**
+	 * 
+	 * @param eventId
+	 * @return
+	 */
+	@GetMapping("/ac-items/{eventId}")
+	public ResponseEntity<?> getActionItemsByEventId(@PathVariable Integer eventId){
+		ActionItemsListVO acItemsListVO = service.fetchActionItemsOfEvent(eventId);
+		return new ResponseEntity<>(acItemsListVO, HttpStatus.OK);
+	}
+	
 }

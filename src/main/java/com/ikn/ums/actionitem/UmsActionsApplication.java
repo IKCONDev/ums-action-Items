@@ -1,4 +1,4 @@
-package com.ikn.ums;
+package com.ikn.ums.actionitem;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

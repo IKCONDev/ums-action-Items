@@ -1,4 +1,4 @@
-package com.ikn.ums.serviceImpl;
+package com.ikn.ums.actionitem.serviceImpl;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -9,10 +9,10 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.ikn.ums.entity.ActionItems;
-
-import com.ikn.ums.repo.ActionsRepository;
-import com.ikn.ums.service.ActionsService;
+import com.ikn.ums.actionitem.VO.ActionItemsListVO;
+import com.ikn.ums.actionitem.entity.ActionItems;
+import com.ikn.ums.actionitem.repo.ActionsRepository;
+import com.ikn.ums.actionitem.service.ActionsService;
 
 @Service
 public class ActionsServiceImpl implements ActionsService{
@@ -68,6 +68,15 @@ public class ActionsServiceImpl implements ActionsService{
 		repo.deleteById(actionId);
 		return 1;
 		
+	}
+
+	//fetches action items based on event id
+	@Override
+	public ActionItemsListVO fetchActionItemsOfEvent(Integer eventId) {
+		ActionItemsListVO acItemsVO = new ActionItemsListVO();
+		List<ActionItems> actionItemsList = repo.findActionItemsByEventId(eventId);
+		acItemsVO.setActionItems(actionItemsList);
+		return acItemsVO;
 	}
 	
 
