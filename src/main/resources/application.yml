@@ -6,11 +6,8 @@ spring:
   datasource:
     driver-class-name: org.postgresql.Driver
     password: root
-<<<<<<< HEAD
+
     url: jdbc:postgresql://localhost:5432/actionitem
-=======
-    url: jdbc:postgresql://10.10.1.224:5432/actionitem
->>>>>>> branch 'master' of https://github.com/IKCONDev/ums-action-Items.git
     username: postgres
   devtools:
     restart:
