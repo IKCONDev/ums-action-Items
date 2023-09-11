@@ -1,6 +1,8 @@
 package com.ikn.ums.actionitem.controller;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -61,7 +63,6 @@ public class ActionsController {
 		}
 	}
 	//Fetching the Single action item
-	@CrossOrigin(origins="*")
 	@GetMapping("/get-action-item/{id}")
 	public ResponseEntity<?> getSingleActionItem(@PathVariable Integer id){
 		try {
@@ -118,6 +119,26 @@ public class ActionsController {
 	public ResponseEntity<?> getAllActionItems(){
 		ActionItemsListVO acItemsListVO = service.fetchActionItems();
 		return new ResponseEntity<>(acItemsListVO, HttpStatus.OK);
+	}
+	
+	@DeleteMapping("/ac-items/delete/{acItemIds}")
+	public ResponseEntity<?> deleteActionItemsById(@PathVariable String acItemIds){
+		System.out.println(acItemIds);
+		List<Integer> actualAcIds = null;
+		if(acItemIds != "") {
+			String[] idsFromUI = acItemIds.split(",");
+			List<String> idsList =  Arrays.asList(idsFromUI);
+			//convert string of ids to Integer ids
+			actualAcIds = idsList.stream()
+                     .map(s -> Integer.parseInt(s))
+                     .collect(Collectors.toList());
+		}
+		try {
+			boolean isAllDeleted = service.deleteAllActionItemsById(actualAcIds);
+			return new ResponseEntity<>(isAllDeleted, HttpStatus.OK);
+		}catch (Exception e) {
+			return new ResponseEntity<>("error while deleting, please try later", HttpStatus.OK);
+		}
 	}
 	
 	//TODO: get action items based on userid

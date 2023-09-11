@@ -86,6 +86,19 @@ public class ActionsServiceImpl implements ActionsService{
 		acItemsVO.setActionItems(actionItemsList);
 		return acItemsVO;
 	}
+
+	@Override
+	public boolean deleteAllActionItemsById(List<Integer> ids) {
+		boolean isAllDeleted = false;
+		try {
+			repo.deleteAllById(ids);
+			isAllDeleted = true;
+		}catch (Exception e) {
+			isAllDeleted = false;
+		}
+		System.out.println(isAllDeleted);
+		return isAllDeleted;
+	}
 	
 
 }

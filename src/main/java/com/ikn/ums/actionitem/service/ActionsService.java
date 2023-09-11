@@ -23,5 +23,7 @@ public interface ActionsService {
 	ActionItemsListVO fetchActionItemsOfEvent(Integer eventId);
 	
 	ActionItemsListVO fetchActionItems();
+	
+	boolean deleteAllActionItemsById(List<Integer> ids);
 
 }
