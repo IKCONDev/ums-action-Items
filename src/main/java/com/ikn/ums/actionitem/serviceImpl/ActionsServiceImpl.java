@@ -7,9 +7,15 @@ import java.util.Optional;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import com.ikn.ums.actionitem.VO.ActionItemsListVO;
+import com.ikn.ums.actionitem.VO.TaskVO;
 import com.ikn.ums.actionitem.entity.ActionItems;
 import com.ikn.ums.actionitem.repo.ActionsRepository;
 import com.ikn.ums.actionitem.service.ActionsService;
@@ -19,6 +25,9 @@ public class ActionsServiceImpl implements ActionsService{
 
 	@Autowired
 	private ActionsRepository repo;
+	
+	@Autowired
+	private RestTemplate restTemplate;
 	
 	@Override
 	@Transactional
@@ -99,6 +108,22 @@ public class ActionsServiceImpl implements ActionsService{
 		System.out.println(isAllDeleted);
 		return isAllDeleted;
 	}
+	
+	@Override
+	public List<TaskVO> sendToTasks(List<ActionItems> actionItem) {
+		// TODO Auto-generated method stub
+		String URL="http://localhost:8012/task/convert-task";
+		HttpEntity<?> httpEntity = new HttpEntity<>(actionItem,null);
+		//ResponseEntity<TaskListVO> responseEntity = restTemplate.exchange(URL, HttpMethod.POST,httpEntity,TaskListVO.class);
+		ResponseEntity<List<TaskVO>> responseEntity = restTemplate.exchange(
+		        URL, HttpMethod.POST, httpEntity, new ParameterizedTypeReference<List<TaskVO>>() {});
+		List<TaskVO> taskList = responseEntity.getBody();
+		System.out.println(responseEntity.getBody());
+		//return responseEntity.getBody().getTaskList();
+		//List<TaskVO> task = responseEntity.getBody().getTaskList();
+		return taskList;
+	}
+	
 	
 
 }

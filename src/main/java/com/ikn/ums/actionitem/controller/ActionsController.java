@@ -143,4 +143,18 @@ public class ActionsController {
 	
 	//TODO: get action items based on userid
 	
+	@PostMapping("/convert-task")
+	public ResponseEntity<?> conversionOfTask(@RequestBody List<ActionItems> actionItemList ){
+		
+		try {
+			
+			return new  ResponseEntity<>(service.sendToTasks(actionItemList),HttpStatus.OK);			
+		}catch (Exception e) {
+			// TODO: handle exception
+			return new ResponseEntity<>(e.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		
+		
+	}
+	
 }
