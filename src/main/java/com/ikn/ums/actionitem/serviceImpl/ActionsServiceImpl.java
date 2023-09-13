@@ -17,6 +17,8 @@ import org.springframework.web.client.RestTemplate;
 import com.ikn.ums.actionitem.VO.ActionItemsListVO;
 import com.ikn.ums.actionitem.VO.TaskVO;
 import com.ikn.ums.actionitem.entity.ActionItems;
+import com.ikn.ums.actionitem.exception.BusinessException;
+import com.ikn.ums.actionitem.exception.ErrorCodeMessages;
 import com.ikn.ums.actionitem.repo.ActionsRepository;
 import com.ikn.ums.actionitem.service.ActionsService;
 
@@ -109,19 +111,31 @@ public class ActionsServiceImpl implements ActionsService{
 		return isAllDeleted;
 	}
 	
+	@Transactional
 	@Override
-	public List<TaskVO> sendToTasks(List<ActionItems> actionItem) {
-		// TODO Auto-generated method stub
-		String URL="http://localhost:8012/task/convert-task";
-		HttpEntity<?> httpEntity = new HttpEntity<>(actionItem,null);
-		//ResponseEntity<TaskListVO> responseEntity = restTemplate.exchange(URL, HttpMethod.POST,httpEntity,TaskListVO.class);
-		ResponseEntity<List<TaskVO>> responseEntity = restTemplate.exchange(
-		        URL, HttpMethod.POST, httpEntity, new ParameterizedTypeReference<List<TaskVO>>() {});
-		List<TaskVO> taskList = responseEntity.getBody();
-		System.out.println(responseEntity.getBody());
-		//return responseEntity.getBody().getTaskList();
-		//List<TaskVO> task = responseEntity.getBody().getTaskList();
-		return taskList;
+	public List<TaskVO> sendToTasks(List<ActionItems> actionItems) {
+		try {
+			System.out.println("ActionsServiceImpl.sendToTasks() entered "+actionItems);
+			
+			String URL="http://localhost:8012/task/convert-task";
+			HttpEntity<?> httpEntity = new HttpEntity<>(actionItems,null);
+			
+			ResponseEntity<List<TaskVO>> responseEntity = restTemplate.exchange(
+			        URL, HttpMethod.POST, httpEntity, new ParameterizedTypeReference<List<TaskVO>>() {});
+			List<TaskVO> taskList = responseEntity.getBody();
+			System.out.println(responseEntity.getBody());
+			
+			//change the action item status to Converted
+			actionItems.stream().forEach(action ->{
+				action.setActionStatus("Converted");
+			});
+			
+			//updates only the status of action item in db
+			repo.saveAll(actionItems);
+			return taskList;
+		}catch (Exception e) {
+			throw new BusinessException("error code", "Service Exception");
+		}
 	}
 	
 	
