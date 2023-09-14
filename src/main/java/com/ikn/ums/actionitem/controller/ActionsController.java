@@ -24,7 +24,7 @@ import com.ikn.ums.actionitem.service.ActionsService;
 
 
 @RestController
-@RequestMapping("/api/actions/")
+@RequestMapping("/api/actions")
 public class ActionsController {
 	
     @Autowired 
@@ -48,6 +48,22 @@ public class ActionsController {
 			
 		}
 
+	}
+	
+	@PostMapping("/generate-actions")
+	public ResponseEntity<?> generateActionItems(@RequestBody List<ActionItems> actionItems){
+		
+		try {
+			boolean value = service.generateActions(actionItems);
+			
+			return new ResponseEntity<>(value,HttpStatus.OK);
+			
+		}catch (Exception e) {
+			// TODO: handle exception
+			return new ResponseEntity<>(e.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		
+		
 	}
 	
 	//Fetch all Action items

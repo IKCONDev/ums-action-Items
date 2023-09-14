@@ -1,6 +1,7 @@
 package com.ikn.ums.actionitem.serviceImpl;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -136,6 +137,27 @@ public class ActionsServiceImpl implements ActionsService{
 		}catch (Exception e) {
 			throw new BusinessException("error code", "Service Exception");
 		}
+	}
+
+	@Override
+	public boolean generateActions(List<ActionItems> actionItems) {
+		// TODO Auto-generated method stub
+		List<ActionItems> action = new ArrayList<>();
+		actionItems.forEach(actions->{
+			ActionItems ac = new ActionItems();
+		    ac.setActionTitle(actions.getActionTitle());
+		    ac.setDescription(actions.getDescription());
+		    ac.setStartDate(actions.getStartDate());
+		    ac.setActionPriority(actions.getActionPriority());
+		    ac.setActionStatus(actions.getActionStatus());
+		    ac.setEndDate(actions.getEndDate());
+		    ac.setEventid(actions.getEventid());
+		    action.add(ac);
+			
+		});
+		repo.saveAll(action);
+		System.out.println(action);
+		return true;
 	}
 	
 	

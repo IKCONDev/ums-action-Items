@@ -29,6 +29,8 @@ public class TaskVO {
 	private LocalDateTime startDate;
 	
 	private LocalDateTime dueDate;
+	
+	private String actionTitle;
 
 
 }

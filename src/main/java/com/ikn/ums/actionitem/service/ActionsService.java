@@ -28,5 +28,7 @@ public interface ActionsService {
 	List<TaskVO> sendToTasks(List<ActionItems> actionItem);
 	
 	boolean deleteAllActionItemsById(List<Integer> ids);
+	
+	boolean generateActions(List<ActionItems> actionItems);
 
 }
