@@ -152,6 +152,7 @@ public class ActionsServiceImpl implements ActionsService{
 		    ac.setActionStatus(actions.getActionStatus());
 		    ac.setEndDate(actions.getEndDate());
 		    ac.setEventid(actions.getEventid());
+		    ac.setUserId(actions.getUserId());
 		    action.add(ac);
 			
 		});
