@@ -46,4 +46,6 @@ public class ActionItems {
 	@Column(name="end_date")
 	private LocalDateTime endDate;
 	
+	@Column(name="user_email")
+	private String userId;
 }

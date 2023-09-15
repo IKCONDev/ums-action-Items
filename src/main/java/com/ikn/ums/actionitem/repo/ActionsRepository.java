@@ -13,5 +13,8 @@ public interface ActionsRepository extends JpaRepository<ActionItems, Integer> {
 	
 	@Query("FROM ActionItems WHERE eventid=:eventId")
 	public List<ActionItems> findActionItemsByEventId(Integer eventId);
+	
+	@Query("FROM ActionItems WHERE userId=:userId")
+	List<ActionItems> findByUserId(String userId);
 
 }

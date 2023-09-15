@@ -20,6 +20,8 @@ public interface ActionsService {
 	//Delete ActionItem based on Id
 	Integer deleteActionItem(Integer actionId);
 	
+	List<ActionItems> fetchActionItemsByEmail(String email);
+	
 	//get action items of an event based on eventId
 	ActionItemsListVO fetchActionItemsOfEvent(Integer eventId);
 	

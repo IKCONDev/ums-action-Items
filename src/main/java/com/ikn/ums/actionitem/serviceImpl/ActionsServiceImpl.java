@@ -159,6 +159,15 @@ public class ActionsServiceImpl implements ActionsService{
 		System.out.println(action);
 		return true;
 	}
+
+	@Override
+	public List<ActionItems> fetchActionItemsByEmail(String email) {
+		// TODO Auto-generated method stub
+	    System.out.println(email);
+		List<ActionItems> list =repo.findByUserId(email);
+		System.out.println(list);
+		return list;
+	}
 	
 	
 

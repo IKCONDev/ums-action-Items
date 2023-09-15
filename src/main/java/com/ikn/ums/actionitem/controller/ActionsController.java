@@ -49,7 +49,9 @@ public class ActionsController {
 		}
 
 	}
-	
+	/*
+	 * Generates the Action Items Based on Transcript
+	 */
 	@PostMapping("/generate-actions")
 	public ResponseEntity<?> generateActionItems(@RequestBody List<ActionItems> actionItems){
 		
@@ -78,6 +80,7 @@ public class ActionsController {
 			return new ResponseEntity<>(e.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
+	
 	//Fetching the Single action item
 	@GetMapping("/get-action-item/{id}")
 	public ResponseEntity<?> getSingleActionItem(@PathVariable Integer id){
@@ -87,6 +90,25 @@ public class ActionsController {
 			// TODO: handle exception
 			return new ResponseEntity<>(e.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR);
 		}
+		
+	}
+	
+	/*
+	 *   Fetch the Action Items Based on the user Id 
+	 */
+	@GetMapping("/fetch-actions/{email}")
+	public ResponseEntity<?> FetchActionItemsByEmailId(@PathVariable ("email") String email){
+		
+		try {
+			
+			List<ActionItems> list = service.fetchActionItemsByEmail(email);
+			return new ResponseEntity<>(list,HttpStatus.OK);
+			
+		}catch (Exception e) {
+			// TODO: handle exception
+			return new ResponseEntity<>(e.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		
 		
 	}
 	
@@ -105,7 +127,7 @@ public class ActionsController {
 	@DeleteMapping("delete-action/{id}")
 	public ResponseEntity<?> deleteActionItem(@PathVariable("id") Integer actionItemid){
 		
-		try {
+		try { 
 			Integer s= service.deleteActionItem(actionItemid);
 			//String str="ActionItem Deleted Successfully";
 			return new ResponseEntity<>(s,HttpStatus.OK);
