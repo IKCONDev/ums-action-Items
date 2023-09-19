@@ -142,7 +142,7 @@ public class ActionsServiceImpl implements ActionsService{
 	@Override
 	public boolean generateActions(List<ActionItems> actionItems) {
 		// TODO Auto-generated method stub
-		List<ActionItems> action = new ArrayList<>();
+		List<ActionItems> actionList = new ArrayList<>();
 		actionItems.forEach(actions->{
 			ActionItems ac = new ActionItems();
 		    ac.setActionTitle(actions.getActionTitle());
@@ -153,11 +153,11 @@ public class ActionsServiceImpl implements ActionsService{
 		    ac.setEndDate(actions.getEndDate());
 		    ac.setEventid(actions.getEventid());
 		    ac.setUserId(actions.getUserId());
-		    action.add(ac);
+		    actionList.add(ac);
 			
 		});
-		repo.saveAll(action);
-		System.out.println(action);
+		repo.saveAll(actionList);
+		System.out.println(actionList);
 		return true;
 	}
 
